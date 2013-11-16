@@ -10,8 +10,8 @@ def histenergy(x,d,res):
 	davg=(ye[1]-ye[0])/2. + ye
 	davg=davg[0:-1]
 	
-	filt=(davg>-0.01) & (davg < 0.01)
+	# filt=(davg>-0.01) & (davg < 0.01)
 
-	out = [h,xval,davg,filt]
+	out = [h,xval,davg]
 	return out
 #}}}

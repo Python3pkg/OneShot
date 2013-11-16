@@ -15,8 +15,8 @@ def histcher(x,y,res):
 	davg = (etay/(etay-yavg)) -1
 	# davg = yavg/etay
 	
-	filt=(davg>-0.01) & (davg < 0.01)
+	# filt=(davg>-0.01) & (davg < 0.01)
 
-	out = [h,xval,davg,filt]
+	out = [h,xval,davg]
 	return out
 #}}}

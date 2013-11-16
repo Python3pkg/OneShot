@@ -5,14 +5,13 @@ import collections as col
 import mytools as mt
 
 # Fit bowtie {{{
-def fitbowtie(beamline,x,y,filt,T,twiss,emitx,error=None,verbose=False):
+def fitbowtie(beamline,x,y,T,twiss,emitx,error=None,verbose=False):
 	beamline_manip = copy.deepcopy(beamline)
 	betax          = twiss[0]
 	alphax         = twiss[1]
 	gammax         = twiss[2]
-	y              = y[filt]
 	y              = y[np.newaxis]
-	gamma          = (1+x[filt])*40000
+	gamma          = (1+x)*40000
 	X              = np.zeros([len(gamma),3])
 	spotexpected   = np.zeros(len(gamma))
 	R              = np.zeros([6,6,len(gamma)])
