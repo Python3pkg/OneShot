@@ -11,7 +11,7 @@ def fitbowtie(beamline,x,y,T,twiss,emitx,error=None,verbose=False):
 	alphax         = twiss[1]
 	gammax         = twiss[2]
 	y              = y[np.newaxis]
-	gamma          = (1+x)*40000
+	gamma          = (1+x)*39824
 	X              = np.zeros([len(gamma),3])
 	spotexpected   = np.zeros(len(gamma))
 	R              = np.zeros([6,6,len(gamma)])
