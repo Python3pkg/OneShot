@@ -3,33 +3,40 @@ import numpy as np
 import copy
 import collections as col
 import mytools as mt
+import matplotlib.pyplot as plt
 
 # Fit bowtie {{{
-def tradquadscan(beamline,x,T,twiss,emitx,error=None,verbose=False):
+def tradquadscan(beamline,y,twiss,emitx,error=None,verbose=False):
 	beamline_manip = copy.deepcopy(beamline)
-	betax          = twiss[0]
-	alphax         = twiss[1]
-	gammax         = twiss[2]
+	numsteps = beamline.size
+	betax          = twiss.beta
+	alphax         = twiss.alpha
+	gammax         = twiss.gamma
 	y              = y[np.newaxis]
-	gamma          = (1+x)*40000
-	X              = np.zeros([len(gamma),3])
-	spotexpected   = np.zeros(len(gamma))
-	R              = np.zeros([6,6,len(gamma)])
-	betaf          = np.zeros(len(gamma))
+	# gamma          = (1+x)*40000
+	X              = np.zeros([numsteps,3])
+	spotexpected   = np.zeros(numsteps)
+	R              = np.zeros([6,6,numsteps])
+	betaf          = np.zeros(numsteps)
 	
-	for i,g in enumerate(gamma):
-		beamline_manip.change_energy(g)
-		beamline_manip.calc_mat()
-		R11             = beamline_manip.R[0,0]
-		R12             = beamline_manip.R[0,1]
-		R[:,:,i]        = beamline_manip.R
+	for i,bl in enumerate(beamline):
+		R11             = bl.R[0,0]
+		R12             = bl.R[0,1]
+		R[:,:,i]        = bl.R
 		X[i,0]          = R11*R11
 		X[i,1]          = 2*R11*R12
 		X[i,2]          = R12*R12
-		T2              = np.dot(np.dot(R[0:2,0:2,i],T),np.transpose(R[0:2,0:2,i]))
+		T2              = np.dot(np.dot(R[0:2,0:2,i],twiss.T),np.transpose(R[0:2,0:2,i]))
 		betaf[i]        = T2[0,0]
 		spotexpected[i] = np.sqrt((R11*R11*betax - 2*R11*R12*alphax + R12*R12*gammax)*emitx)
 	
+	if verbose:
+		# mt.figure('Expected')
+		# xax=np.linspace(1,numsteps,numsteps)
+		# plt.plot(xax,np.sqrt(y.transpose()),xax,spotexpected)
+		# plt.show()
+		pass
+
 	# beta is the best solution of beam parameters:
 	# sig^2 = R11^2 <x^2> + 2 R11 R12 <xx'> + R12^2 <x'^2>
 	# beta[0,0] = <x^2>

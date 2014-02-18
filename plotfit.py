@@ -1,17 +1,32 @@
 #!/usr/bin/env python
-import numpy as np
-import matplotlib.pyplot as plt
-import mytools as mt
+import numpy as _np
+import matplotlib.pyplot as _plt
+import mytools as _mt
 
-def plotfit(x,y,beta,X,spotexpected,top,elepath='figs',error=None):
-	# Recast as fractional energy
-	e_frac=x+1
+def plotfit(x,y,beta,X,top,bottom='Arbitrary',elepath=None,error=None,figlabel=None):
+	# Convert from meters to um
+	y_data_mm_sq = y * 1e6
+	y_fit_mm_sq = _np.dot(X,beta) * 1e6
+	error_mm_sq = error * 1e6
+
+	if not (figlabel == None):
+		fig = _mt.figure(figlabel)
+	else:
+		fig = _plt.figure()
+
 	# Plot data with error bars
-	plt.errorbar(e_frac,y*(1e3**2),error*(1e3**2),fmt='.-')
+	_plt.errorbar(x,y_data_mm_sq,error_mm_sq,fmt='.-')
+	# _plt.plot(x,y_data_mm_sq,'-')
+
+	# _mt.figure('splitme')
 
 	# Plot fits
-	plt.plot(e_frac,np.dot(X,beta)*(1e3**2),'-')
+	_plt.plot(x,y_fit_mm_sq,'-')
 
-	mt.addlabel(top,'$E/E_0$','$\sigma_x^2$ [mm$^2$]')
-	plt.legend(['Simulated Data','Fit to Data'])
-	mt.graphics.savefig(top,elepath)
+	_mt.addlabel(top,bottom,'$\sigma_x^2$ [mm$^2$]')
+	_plt.legend(['Simulated Data','Fit to Data'])
+
+	if not (elepath == None):
+		_mt.graphics.savefig(top,elepath)
+
+	return fig
