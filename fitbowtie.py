@@ -18,8 +18,8 @@ def fitbowtie(beamline,x,y,T,twiss,emitx,error=None,verbose=False):
 	betaf          = np.zeros(len(gamma))
 	
 	for i,g in enumerate(gamma):
-		beamline_manip.change_energy(g)
-		beamline_manip.calc_mat()
+		beamline_manip.gamma=g
+		# beamline_manip.calc_mat()
 		R11             = beamline_manip.R[0,0]
 		R12             = beamline_manip.R[0,1]
 		R[:,:,i]        = beamline_manip.R
@@ -61,7 +61,6 @@ def fitbowtie(beamline,x,y,T,twiss,emitx,error=None,verbose=False):
 		)
 
 	chisq_red = mt.chisquare(y.transpose(),np.dot(X_unweighted,beta),error,ddof=3,verbose=verbose)
-# def chisquare(observe,expect,error,ddof,verbose=True):
 
 	if verbose:
 		print 'Emittance error is:\t\t{}.'.format(np.sqrt(del_emit_sq))
