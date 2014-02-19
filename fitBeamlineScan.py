@@ -4,6 +4,7 @@ import copy as _copy
 import collections as _col
 import mytools as _mt
 import matplotlib.pyplot as _plt
+import pdb as _pdb
 
 # Fit bowtie {{{
 def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False):
@@ -47,6 +48,7 @@ def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False):
 
 	# This is the linear least squares matrix formalism
 	y_err = y_err.transpose()
+	# _pdb.set_trace()
 	beta  = _np.dot(_np.linalg.pinv(X) , y_err)
 	covar = _np.linalg.inv(_np.dot(_np.transpose(X),X))
 	
