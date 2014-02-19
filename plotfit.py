@@ -21,7 +21,7 @@ def plotfit(x,y,beta,X,top,bottom='Arbitrary',elepath=None,error=None,figlabel=N
 	# _mt.figure('splitme')
 
 	# Plot fits
-	_plt.plot(x,y_fit_mm_sq,'-')
+	_plt.plot(x,y_fit_mm_sq,'.-')
 
 	_mt.addlabel(top,bottom,'$\sigma_x^2$ [mm$^2$]')
 	_plt.legend(['Simulated Data','Fit to Data'])
