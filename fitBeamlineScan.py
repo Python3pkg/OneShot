@@ -5,9 +5,10 @@ import collections as _col
 import mytools as _mt
 import matplotlib.pyplot as _plt
 import pdb as _pdb
+import mytools.slactrac as _sltr
 
 # Fit bowtie {{{
-def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False):
+def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False,plot=False):
 	beamline_manip = _copy.deepcopy(beamline)
 	numsteps = beamline.size
 	y              = y[_np.newaxis]
@@ -25,11 +26,11 @@ def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False):
 		# spotexpected[i] = bl.twiss.transport(bl.R[0:2,0:2]).spotsize(emitx)
 		spotexpected[i] = bl.spotsize_x_end(emitx)
 	
-	if verbose:
-		# _mt.figure('Expected')
-		# xax=_np.linspace(1,numsteps,numsteps)
-		# plt.plot(xax,_np.sqrt(y.transpose()),xax,spotexpected)
-		# plt.show()
+	if plot:
+		_mt.figure('Expected')
+		xax=_np.linspace(1,numsteps,numsteps)
+		_plt.plot(xax,_np.sqrt(y.transpose()),xax,spotexpected)
+		_plt.show()
 		pass
 
 	# beta is the best solution of beam parameters:
@@ -48,7 +49,6 @@ def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False):
 
 	# This is the linear least squares matrix formalism
 	y_err = y_err.transpose()
-	# _pdb.set_trace()
 	beta  = _np.dot(_np.linalg.pinv(X) , y_err)
 	covar = _np.linalg.inv(_np.dot(_np.transpose(X),X))
 	
@@ -65,12 +65,12 @@ def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False):
 
 	chisq_red = _mt.chisquare(y.transpose(),_np.dot(X_unweighted,beta),error,ddof=3,verbose=verbose)
 # def chisquare(observe,expect,error,ddof,verbose=True):
+	beta0 = beta[0,0]/emit
+	gamma0 = beta[2,0]/emit
+	alpha0 = -_np.sign(beta[1,0])*_np.sqrt(beta0*gamma0-1)
 
 	if verbose:
 		print 'Emittance error is:\t\t{}.'.format(_np.sqrt(del_emit_sq))
-		beta0 = beta[0,0]/emit
-		gamma0 = beta[2,0]/emit
-		alpha0 = -_np.sign(beta[1,0])*_np.sqrt(beta0*gamma0-1)
 		print 'Emittance fit:\t\t\t{}.'.format(emit)
 		print 'Normalized emittance fit:\t{}.'.format(emit*40000)
 		print 'Initial beta fit:\t\t{}.'.format(beta0)
@@ -78,8 +78,10 @@ def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False):
 		print 'Initial gamma fit:\t\t{}.'.format(gamma0)
 		print 'Initial spot from fit:\t\t{}.'.format(_np.sqrt(beta[0,0]))
 
-	output = _col.namedtuple('fitbowtie_output',['spotexpected','X','X_unweighted','beta','covar','chisq_red'])
-	out = output(spotexpected,X,X_unweighted,beta,covar,chisq_red)
+	twiss_initial_fit = _sltr.Twiss(beta0,alpha0)
+
+	output = _col.namedtuple('fitbowtie_output',['emit','twiss','spotexpected','X','X_unweighted','beta','covar','chisq_red'])
+	out = output(emit,twiss_initial_fit,spotexpected,X,X_unweighted,beta,covar,chisq_red)
 
 	return out
 #}}}
