@@ -1,7 +1,8 @@
 import numpy as _np
 
 E0 = 20.35
-y0 = 456.149271788
+# y0 = 456.149271788
+y0 = 452.777049004
 
 def E200_cam_E_cal(h5file,y,res):
 	_checkres(res)

@@ -30,7 +30,7 @@ def plotfit(x,y,beta,X,top,bottom='Arbitrary',figpath=None,error=None,figlabel=N
 	axes.plot(x,y_fit_mm_sq,'.-')
 
 	_mt.addlabel(top,bottom,'$\sigma_x^2$ [mm$^2$]')
-	axes.legend(['Simulated Data','Fit to Data'])
+	axes.legend(['Measured Spot Variance','Fit Spot Variance'])
 
 	if not (figpath == None):
 		_mt.graphics.savefig(top,figpath)
