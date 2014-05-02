@@ -7,9 +7,10 @@ import mytools as mt
 # Fit bowtie {{{
 def fitbowtie(beamline,x,y,T,twiss,emitx,error=None,verbose=False):
 	beamline_manip = copy.deepcopy(beamline)
-	betax          = twiss[0]
-	alphax         = twiss[1]
-	gammax         = twiss[2]
+	betax          = twiss.beta
+	alphax         = twiss.alpha
+	gammax         = twiss.gamma
+	T = twiss.T
 	y              = y[np.newaxis]
 	gamma          = (1+x)*39824
 	X              = np.zeros([len(gamma),3])
