@@ -3,6 +3,11 @@ import mytools.slactrac as _sltr
 gamma_default  = 39824
 QS1_K1_default = 3.077225846087095e-01
 QS2_K1_default = -2.337527121004531e-01
+PEXT_Z = 1994.97
+QS1_Z = 1998.71
+# IP2QS1_length = 5.4217
+IP2QS1_length = QS1_Z-PEXT_Z
+print 'Length is {}'.format(IP2QS1_length)
 
 def IP_to_lanex(twiss_x,twiss_y,
 		gamma  = gamma_default,
@@ -10,7 +15,7 @@ def IP_to_lanex(twiss_x,twiss_y,
 		QS2_K1 = QS2_K1_default
 		):
 	# Beamline elements
-	IP2QS1    = _sltr.Drift(length = 5.4217)
+	IP2QS1    = _sltr.Drift(length = IP2QS1_length)
 	QS1       = _sltr.Quad(length = 5.000000000E-01,K1 = QS1_K1)
 	LQS12QS2  = _sltr.Drift(length = 4.00E+00)
 	QS2       = _sltr.Quad(length = 5.000000000E-01,K1 = QS2_K1)
@@ -46,7 +51,7 @@ def IP_to_lanex_nobend(twiss_x,twiss_y,
 		QS2_K1 = -2.337527121004531e-01
 		):
 	# Beamline elements
-	IP2QS1    = _sltr.Drift(length = 5.4217)
+	IP2QS1    = _sltr.Drift(length = IP2QS1_length)
 	QS1       = _sltr.Quad(length = 5.000000000E-01,K1 = QS1_K1)
 	LQS12QS2  = _sltr.Drift(length = 4.00E+00)
 	QS2       = _sltr.Quad(length = 5.000000000E-01,K1 = QS2_K1)
