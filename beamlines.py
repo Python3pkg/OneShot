@@ -7,7 +7,6 @@ PEXT_Z = 1994.97
 QS1_Z = 1998.71
 # IP2QS1_length = 5.4217
 IP2QS1_length = QS1_Z-PEXT_Z
-print 'Length is {}'.format(IP2QS1_length)
 
 def IP_to_lanex(twiss_x,twiss_y,
 		gamma  = gamma_default,
