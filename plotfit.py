@@ -8,6 +8,7 @@ def plotfit(x,y,beta,X,top,bottom='Arbitrary',figpath=None,error=None,figlabel=N
 	# ======================================
 	# Set up PDF saving
 	# ======================================
+	print axes
 	if axes is None:
 		if not (figlabel == None):
 			fig = _mt.figure(figlabel)
@@ -29,7 +30,7 @@ def plotfit(x,y,beta,X,top,bottom='Arbitrary',figpath=None,error=None,figlabel=N
 	# Plot fits
 	axes.plot(x,y_fit_mm_sq,'.-')
 
-	_mt.addlabel(top,bottom,'$\sigma_x^2$ [mm$^2$]')
+	# _mt.addlabel(top,bottom,'$\sigma_x^2$ [mm$^2$]')
 	axes.legend(['Measured Spot Variance','Fit Spot Variance'])
 
 	if not (figpath == None):
