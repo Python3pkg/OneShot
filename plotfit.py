@@ -8,7 +8,7 @@ def plotfit(x,y,beta,X,top,bottom='Arbitrary',figpath=None,error=None,figlabel=N
 	# ======================================
 	# Set up PDF saving
 	# ======================================
-	print axes
+	# print axes
 	if axes is None:
 		if not (figlabel == None):
 			fig = _mt.figure(figlabel)
