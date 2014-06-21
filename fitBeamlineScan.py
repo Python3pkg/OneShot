@@ -7,110 +7,16 @@ import matplotlib.pyplot as _plt
 import pdb as _pdb
 import mytools.slactrac as _sltr
 
-class LinLsqFit(object):
-	def __init__(self,y_unweighted,X_unweighted,y_error=None):
-		self._force_recalc()
+class ScanFit(_mt.LinLsqFit):
+	def __init__(self,eaxis,*args,**kwargs):
+		self._resetlist = _np.append(self._resetlist,['_emit','_twiss','_emitn'])
+		_mt.LinLsqFit.__init__(self,*args,**kwargs)
+		self.eaxis=eaxis
 
-		# print y_unweighted.shape
-		# print X_unweighted.shape
-		# print y_error.shape
-		self.y_unweighted=y_unweighted
-		self.y_error=y_error
-		self.X_unweighted = X_unweighted
-
-	# ======================================
-	# Resets stored values for calculated
-	# quantities
-	# ======================================
-	def _force_recalc(self):
-		self._X = None
-		self._y = None
-		self._beta = None
-		self._covar = None
-		self._chisq_red = None
-		self._emit = None
-		self._twiss=None
-
-	# ======================================
-	# y_unweighted
-	# ======================================
-	def _get_y_unweighted(self):
-		return self._y_unweighted
-	def _set_y_unweighted(self,val):
-		self._force_recalc()
-		self._y_unweighted=val
-	y_unweighted = property(_get_y_unweighted,_set_y_unweighted)
-
-	# ======================================
-	# y_error
-	# ======================================
-	def _get_y_error(self):
-		return self._y_error
-	def _set_y_error(self,val):
-		self._force_recalc()
-		self._y_error=val
-	y_error = property(_get_y_error,_set_y_error)
-	
-	# ======================================
-	# X_unweighted
-	# ======================================
-	def _get_X_unweighted(self):
-		return self._X_unweighted
-	def _set_X_unweighted(self,val):
-		self._force_recalc()
-		self._X_unweighted=val
-	X_unweighted = property(_get_X_unweighted,_set_X_unweighted)
-
-	# ======================================
-	# X (calculated)
-	# ======================================
-	def _get_X(self):
-		if self._X == None:
-			X = _copy.deepcopy(self.X_unweighted)
-			# print 'X shape is {}'.format(X.shape)
-			for i,el in enumerate(X):
-				X[i,:]=el/self.y_error[i]
-			# print 'New X shape is {}'.format(X.shape)
-			self._X = X
-		return self._X
-	X = property(_get_X)
-
-	# ======================================
-	# y (calculated)
-	# ======================================
-	def _get_y(self):
-		if self._y==None:
-			self._y = self.y_unweighted/self.y_error
-		return self._y
-	y = property(_get_y)
-
-	# ======================================
-	# beta (calculated)
-	# ======================================
-	def _get_beta(self):
-		if self._beta==None:
-			# This is the linear least squares matrix formalism
-			self._beta = _np.dot(_np.linalg.pinv(self.X) , self.y)
-		return self._beta
-	beta = property(_get_beta)
-
-	# ======================================
-	# covar (calculated)
-	# ======================================
-	def _get_covar(self):
-		if self._covar==None:
-			self._covar=_np.linalg.inv(_np.dot(_np.transpose(self.X),self.X))
-		return self._covar
-	covar = property(_get_covar)
-	
-	# ======================================
-	# chisq_red (calculated)
-	# ======================================
-	def _get_chisq_red(self):
-		if self._chisq_red==None:
-			self._chisq_red = _mt.chisquare(self.y_unweighted.transpose(),_np.dot(self.X_unweighted,self.beta),self.y_error,ddof=3,verbose=False)
-		return self._chisq_red
-	chisq_red=property(_get_chisq_red)
+	def _get_e_gamma(self):
+		argmin = _np.argmin(self.y_fit)
+		return self.eaxis[argmin]/(0.5109989e-3)
+	gamma = property(_get_e_gamma)
 
 	# ======================================
 	# emit (calculated)
@@ -120,6 +26,16 @@ class LinLsqFit(object):
 			self._emit = _np.sqrt( self.beta[0,0] * self.beta[2,0] - _np.square(self.beta[1,0]) )
 		return self._emit
 	emit=property(_get_emit)
+
+	# ======================================
+	# emitn (calculated)
+	# ======================================
+	def _get_emitn(self):
+		if self._emitn==None:
+			self._emitn = self.emit * self.gamma
+		return self._emitn
+	emitn=property(_get_emitn)
+
 
 	# ======================================
 	# twiss (calculated)
@@ -172,7 +88,7 @@ def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False,plot=False,eaxis=N
 	# beta[1,0] = <xx'>
 	# beta[2,0] = <x'^2>
 
-	myfit = LinLsqFit(y_unweighted=y.transpose(),X_unweighted=X,y_error=error)
+	myfit = ScanFit(eaxis=eaxis,y_unweighted=y.transpose(),X_unweighted=X,y_error=error)
 	beta = myfit.beta
 	covar = myfit.covar
 	chisq_red = myfit.chisq_red
@@ -194,15 +110,11 @@ def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False,plot=False,eaxis=N
 	# beta0 = beta[0,0]/emit
 	# gamma0 = beta[2,0]/emit
 	# alpha0 = -_np.sign(beta[1,0])*_np.sqrt(beta0*gamma0-1)
-	argmin = _np.argmin(_np.dot(myfit.X,myfit.beta))
-	e_gamma = eaxis[argmin]/(0.5109989e-3)
-	print eaxis[argmin]
-	print e_gamma
 
 	if verbose:
 		print 'Emittance error is:\t\t{}.'.format(_np.sqrt(del_emit_sq))
 		print 'Emittance fit:\t\t\t{}.'.format(emit)
-		print 'Normalized emittance fit:\t{}.'.format(myfit.emit*e_gamma)
+		print 'Normalized emittance fit:\t{}.'.format(myfit.emitn)
 		print 'Initial beta fit:\t\t{}.'.format(myfit.twiss.beta)
 		print 'Initial alpha fit:\t\t{}.'.format(myfit.twiss.alpha)
 		print 'Initial gamma fit:\t\t{}.'.format(myfit.twiss.gamma)
