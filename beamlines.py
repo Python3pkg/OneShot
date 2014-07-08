@@ -23,7 +23,7 @@ def IP_to_lanex(twiss_x,twiss_y,
 			length= 2*4.889500000E-01,
 			angle= 6.0E-03, 	     
 			order=1,
-			rotate=0
+			rotate=90
 		       )
 	LBEND2ELANEX = _sltr.Drift(length = 8.792573)
 	beamline     = _sltr.Beamline(
