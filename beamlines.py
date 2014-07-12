@@ -35,6 +35,7 @@ def IP_to_lanex(beam_x,beam_y,
 	LBEND2AL = _sltr.Drift(length = 8.792573-0.06)
 	ALSCATTER    = _sltr.Scatter(thickness = 5e-3, radlength = 8.897e-2)
 	AL2ELANEX = _sltr.Drift(length = 0.06)
+
 	beamline     = _sltr.Beamline(
 			element_list=[
 				# IP2QS1  ,
@@ -75,7 +76,7 @@ def IP_to_lanex_nobend(beam_x,beam_y,
 
 	# Replace bend with drift
 	B5D36_drift = _sltr.Drift(length= 2*4.889500000E-01)
-	beamline.elements[7] = B5D36_drift
+	beamline.elements[9] = B5D36_drift
 
 	return beamline
 
@@ -90,6 +91,7 @@ def IP_to_cherfar(beam_x,beam_y,
 		QS2_K1 = QS2_K1
 		)
 
-	beamline.elements[8].length = beamline.elements[8].length + 0.8198
+	print beamline.elements[12].length
+	beamline.elements[12].length = beamline.elements[12].length + 0.8198
 
 	return beamline
