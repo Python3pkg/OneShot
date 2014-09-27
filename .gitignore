@@ -1,4 +1,6 @@
 java.opts
+*.hdf5
+*.old
 *.swp
 *.pyc
 *~

@@ -1,8 +1,10 @@
 import mytools.slactrac as _sltr
 
 gamma_default  = 39824
-QS1_K1_default = 3.077225846087095e-01
-QS2_K1_default = -2.337527121004531e-01
+# QS1_K1_default = 3.077225846087095e-01
+# QS2_K1_default = -2.337527121004531e-01
+QS1_K1_default = 3.8743331090707228e-1
+QS2_K1_default = -2.5439067538354171e-1
 PEXT_Z = 1994.97
 QS1_Z = 1998.71
 AL_Z = 2015.16
