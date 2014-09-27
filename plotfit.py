@@ -14,9 +14,9 @@ def plotfit(x,y,beta,X,top,bottom='Arbitrary',figpath=None,error=None,figlabel=N
 			fig = _mt.figure(figlabel)
 		else:
 			fig = _plt.figure()
-		axes=_plt.gca()
+		axes=fig.add_subplot(1,1,1)
 	else:
-		fig = None
+		fig = axes.get_figure()
 
 	# Convert from meters to um
 	y_data_mm_sq = y * 1e6
@@ -52,4 +52,4 @@ def plotfit(x,y,beta,X,top,bottom='Arbitrary',figpath=None,error=None,figlabel=N
 	if not (figpath == None):
 		_mt.graphics.savefig(figlabel,figpath)
 
-	# return fig
+	return axes

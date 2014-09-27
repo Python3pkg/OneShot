@@ -56,15 +56,15 @@ class BeamlineScanFit(object):
 		self.spotexpected=spotexpected
 
 # Fit bowtie {{{
-def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False,plot=False,eaxis=None):
+def fitBeamlineScan(beamline,y,error=None,verbose=False,plot=False,eaxis=None):
 	beamline_manip = _copy.deepcopy(beamline)
-	numsteps = beamline.size
+	numsteps = beamline_manip.size
 	y              = y[_np.newaxis]
 	error          = error[_np.newaxis].transpose()
 	X              = _np.zeros([numsteps,3])
 	spotexpected   = _np.zeros(numsteps)
 	
-	for i,bl in enumerate(beamline):
+	for i,bl in enumerate(beamline_manip):
 		R11             = bl.R[0,0]
 		R12             = bl.R[0,1]
 		X[i,0]          = R11*R11
@@ -73,7 +73,8 @@ def fitBeamlineScan(beamline,y,emitx,error=None,verbose=False,plot=False,eaxis=N
 		# spotexpected[i] = _np.sqrt((R11*R11*twiss.beta - 2*R11*R12*twiss.alpha + R12*R12*twiss.gamma)*emitx)
 		# twiss=beamline.twiss_x
 		# spotexpected[i] = bl.twiss.transport(bl.R[0:2,0:2]).spotsize(emitx)
-		spotexpected[i] = bl.spotsize_x_end(emitx)
+		# spotexpected[i] = bl.spotsize_x_end(emitx)
+		spotexpected[i] = bl.spotsize_x_end
 	
 	if plot:
 		_mt.figure('Expected')

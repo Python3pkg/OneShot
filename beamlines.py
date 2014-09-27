@@ -8,7 +8,7 @@ QS1_Z = 1998.71
 # IP2QS1_length = 5.4217
 IP2QS1_length = QS1_Z-PEXT_Z
 
-def IP_to_lanex(twiss_x,twiss_y,
+def IP_to_lanex(beam_x,beam_y,
 		gamma  = gamma_default,
 		QS1_K1 = QS1_K1_default,
 		QS2_K1 = QS2_K1_default
@@ -39,20 +39,20 @@ def IP_to_lanex(twiss_x,twiss_y,
 				LBEND2ELANEX	
 				],
 			gamma = gamma,
-			twiss_x = twiss_x,
-			twiss_y = twiss_y
+			beam_x = beam_x,
+			beam_y = beam_y
 			)
 	return beamline
 
-def IP_to_lanex_nobend(twiss_x,twiss_y,
+def IP_to_lanex_nobend(beam_x,beam_y,
 		gamma  = gamma_default,
 		QS1_K1 = QS1_K1_default,
 		QS2_K1 = QS2_K1_default
 		):
 
 	beamline = IP_to_lanex(
-			twiss_x=twiss_x,
-			twiss_y=twiss_y,
+			beam_x=beam_x,
+			beam_y=beam_y,
 			gamma  = gamma,
 			QS1_K1 = QS1_K1,
 			QS2_K1 = QS2_K1
@@ -64,12 +64,12 @@ def IP_to_lanex_nobend(twiss_x,twiss_y,
 
 	return beamline
 
-def IP_to_cherfar(twiss_x,twiss_y,
+def IP_to_cherfar(beam_x,beam_y,
 		gamma  = gamma_default,
 		QS1_K1 = QS1_K1_default,
 		QS2_K1 = QS2_K1_default
 		):
-	beamline = IP_to_lanex(twiss_x,twiss_y,
+	beamline = IP_to_lanex(beam_x,beam_y,
 		gamma  = gamma,
 		QS1_K1 = QS1_K1,
 		QS2_K1 = QS2_K1
