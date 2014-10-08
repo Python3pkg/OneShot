@@ -9,7 +9,7 @@ import mytools.slactrac as _sltr
 
 class ScanFit(_mt.LinLsqFit):
 	def __init__(self,eaxis,*args,**kwargs):
-		self._resetlist = _np.append(self._resetlist,['_emit','_twiss','_emitn'])
+		self._resetlist = _np.append(self._resetlist,['_emit','_Beam','_emitn'])
 		_mt.LinLsqFit.__init__(self,*args,**kwargs)
 		self.eaxis=eaxis
 
@@ -40,14 +40,14 @@ class ScanFit(_mt.LinLsqFit):
 	# ======================================
 	# twiss (calculated)
 	# ======================================
-	def _get_twiss(self):
-		if self._twiss==None:
+	def _get_Beam(self):
+		if self._Beam==None:
 			beta0 = self.beta[0,0]/self.emit
 			gamma0 = self.beta[2,0]/self.emit
 			alpha0 = -_np.sign(self.beta[1,0])*_np.sqrt(beta0*gamma0-1)
-			self._twiss = _sltr.Twiss(beta=beta0,alpha=alpha0)
-		return self._twiss
-	twiss=property(_get_twiss)
+			self._Beam = _sltr.BeamParams(beta=beta0,alpha=alpha0,emit=self.emit)
+		return self._Beam
+	Beam=property(_get_Beam)
 
 
 class BeamlineScanFit(object):
@@ -116,15 +116,15 @@ def fitBeamlineScan(beamline,y,error=None,verbose=False,plot=False,eaxis=None):
 		print 'Emittance error is:\t\t{}.'.format(_np.sqrt(del_emit_sq))
 		print 'Emittance fit:\t\t\t{}.'.format(emit)
 		print 'Normalized emittance fit:\t{}.'.format(myfit.emitn)
-		print 'Initial beta fit:\t\t{}.'.format(myfit.twiss.beta)
-		print 'Initial alpha fit:\t\t{}.'.format(myfit.twiss.alpha)
-		print 'Initial gamma fit:\t\t{}.'.format(myfit.twiss.gamma)
+		print 'Initial beta fit:\t\t{}.'.format(myfit.Beam.beta)
+		print 'Initial alpha fit:\t\t{}.'.format(myfit.Beam.alpha)
+		print 'Initial gamma fit:\t\t{}.'.format(myfit.Beam.gamma)
 		print 'Initial spot from fit:\t\t{}.'.format(_np.sqrt(myfit.beta[0,0]))
 		print 'Min spot size (gauss fit): \t{}.'.format(min(_np.sqrt(y[0])))
-		print 'Min spot size (emit fit): \t{}.'.format(myfit.twiss.minspotsize(myfit.emit))
+		print 'Min spot size (emit fit): \t{}.'.format(myfit.Beam.minspotsize)
 
-		print 'Beta* is: \t\t\t{}.'.format(myfit.twiss.betastar)
-		print 's* is: \t\t\t\t{}.'.format(myfit.twiss.sstar)
+		print 'Beta* is: \t\t\t{}.'.format(myfit.Beam.betastar)
+		print 's* is: \t\t\t\t{}.'.format(myfit.Beam.sstar)
 
 	# output = _col.namedtuple('fitbowtie_output',['emit','twiss','spotexpected','X','X_unweighted','beta','covar','chisq_red'])
 	# out = output(emit,,spotexpected,myfit.X,myfit.X_unweighted,myfit.beta,myfit.covar,myfit.chisq_red)
