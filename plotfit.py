@@ -4,7 +4,7 @@ import matplotlib.pyplot as _plt
 import mytools as _mt
 from matplotlib.backends.backend_pdf import PdfPages
 
-def plotfit(x,y,beta,X,top,bottom='Arbitrary',figpath=None,error=None,figlabel=None,axes=None,**kwargs):
+def plotfit(x,y,beta,X,top=None,bottom='Arbitrary',figpath=None,error=None,figlabel=None,axes=None,**kwargs):
 	# ======================================
 	# Set up PDF saving
 	# ======================================
