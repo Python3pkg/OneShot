@@ -75,7 +75,7 @@ def fitBeamlineScan(beamline,y,error=None,verbose=False,plot=False,eaxis=None):
 		# spotexpected[i] = bl.twiss.transport(bl.R[0:2,0:2]).spotsize(emitx)
 		# spotexpected[i] = bl.spotsize_x_end(emitx)
 		spotexpected[i] = bl.spotsize_x_end
-	
+
 	if plot:
 		_mt.figure('Expected')
 		xax=_np.linspace(1,numsteps,numsteps)
