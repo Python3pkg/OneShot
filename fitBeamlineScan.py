@@ -5,7 +5,7 @@ import collections as _col
 import mytools as _mt
 import matplotlib.pyplot as _plt
 import pdb as _pdb
-import mytools.slactrac as _sltr
+import slactrac as _sltr
 
 class ScanFit(_mt.LinLsqFit):
 	def __init__(self,eaxis,*args,**kwargs):
