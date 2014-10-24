@@ -1,4 +1,6 @@
-import mytools.slactrac as _sltr
+import slactrac as _sltr
+import logging
+logger=logging.getLogger(__name__)
 
 gamma_default  = 39824
 # QS1_K1_default = 3.077225846087095e-01
@@ -18,6 +20,7 @@ def IP_to_lanex(beam_x,beam_y,
 		QS1_K1 = QS1_K1_default,
 		QS2_K1 = QS2_K1_default
 		):
+	logger.debug('Using lanex')
 	# Beamline elements
 	# IP2QS1    = _sltr.Drift(length = IP2QS1_length)
 	IP2BE     = _sltr.Drift(length = IP2QS1_length-2.37)
@@ -68,6 +71,8 @@ def IP_to_lanex_nobend(beam_x,beam_y,
 		QS2_K1 = QS2_K1_default
 		):
 
+	logger.debug('Using lanex_nobend')
+
 	beamline = IP_to_lanex(
 			beam_x=beam_x,
 			beam_y=beam_y,
@@ -87,13 +92,17 @@ def IP_to_cherfar(beam_x,beam_y,
 		QS1_K1 = QS1_K1_default,
 		QS2_K1 = QS2_K1_default
 		):
+	logger.debug('Using cherfar')
 	beamline = IP_to_lanex(beam_x,beam_y,
 		gamma  = gamma,
 		QS1_K1 = QS1_K1,
 		QS2_K1 = QS2_K1
 		)
 
-	print beamline.elements[12].length
+	# print beamline.elements[12].length
+	ind = 12
+	logger.debug('Modifying lanex into cherfar by changing length of element: Index {}'.format(ind))
+	logger.debug('Beamline elements {ind}: {value}'.format(ind=ind,value=beamline.elements[12].length))
 	beamline.elements[12].length = beamline.elements[12].length + 0.8198
 
 	return beamline
