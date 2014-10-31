@@ -7,6 +7,10 @@ import matplotlib.pyplot as _plt
 import pdb as _pdb
 import slactrac as _sltr
 
+import logging
+loggerlevel=logging.DEBUG
+logger=logging.getLogger(__name__)
+
 class ScanFit(_mt.LinLsqFit):
 	def __init__(self,eaxis,*args,**kwargs):
 		self._resetlist = _np.append(self._resetlist,['_emit','_Beam','_emitn'])
@@ -112,19 +116,18 @@ def fitBeamlineScan(beamline,y,error=None,verbose=False,plot=False,eaxis=None):
 	# gamma0 = beta[2,0]/emit
 	# alpha0 = -_np.sign(beta[1,0])*_np.sqrt(beta0*gamma0-1)
 
-	if verbose:
-		print 'Emittance error is:\t\t{}.'.format(_np.sqrt(del_emit_sq))
-		print 'Emittance fit:\t\t\t{}.'.format(emit)
-		print 'Normalized emittance fit:\t{}.'.format(myfit.emitn)
-		print 'Initial beta fit:\t\t{}.'.format(myfit.Beam.beta)
-		print 'Initial alpha fit:\t\t{}.'.format(myfit.Beam.alpha)
-		print 'Initial gamma fit:\t\t{}.'.format(myfit.Beam.gamma)
-		print 'Initial spot from fit:\t\t{}.'.format(_np.sqrt(myfit.beta[0,0]))
-		print 'Min spot size (gauss fit): \t{}.'.format(min(_np.sqrt(y[0])))
-		print 'Min spot size (emit fit): \t{}.'.format(myfit.Beam.minspotsize)
+	logger.log(level=loggerlevel,msg='Emittance error is:\t\t{}.'.format(_np.sqrt(del_emit_sq)))
+	logger.log(level=loggerlevel,msg='Emittance fit:\t\t\t{}.'.format(emit))
+	logger.log(level=loggerlevel,msg='Normalized emittance fit:\t{}.'.format(myfit.emitn))
+	logger.log(level=loggerlevel,msg='Initial beta fit:\t\t{}.'.format(myfit.Beam.beta))
+	logger.log(level=loggerlevel,msg='Initial alpha fit:\t\t{}.'.format(myfit.Beam.alpha))
+	logger.log(level=loggerlevel,msg='Initial gamma fit:\t\t{}.'.format(myfit.Beam.gamma))
+	logger.log(level=loggerlevel,msg='Initial spot from fit:\t\t{}.'.format(_np.sqrt(myfit.beta[0,0])))
+	logger.log(level=loggerlevel,msg='Min spot size (gauss fit): \t{}.'.format(min(_np.sqrt(y[0]))))
+	logger.log(level=loggerlevel,msg='Min spot size (emit fit): \t{}.'.format(myfit.Beam.minspotsize))
 
-		print 'Beta* is: \t\t\t{}.'.format(myfit.Beam.betastar)
-		print 's* is: \t\t\t\t{}.'.format(myfit.Beam.sstar)
+	logger.log(level=loggerlevel,msg='Beta* is: \t\t\t{}.'.format(myfit.Beam.betastar))
+	logger.log(level=loggerlevel,msg='s* is: \t\t\t\t{}.'.format(myfit.Beam.sstar))
 
 	# output = _col.namedtuple('fitbowtie_output',['emit','twiss','spotexpected','X','X_unweighted','beta','covar','chisq_red'])
 	# out = output(emit,,spotexpected,myfit.X,myfit.X_unweighted,myfit.beta,myfit.covar,myfit.chisq_red)
