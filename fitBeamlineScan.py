@@ -61,6 +61,8 @@ class BeamlineScanFit(object):
 
 # Fit bowtie {{{
 def fitBeamlineScan(beamline,y,error=None,verbose=False,plot=False,eaxis=None):
+	logger.log(level=loggerlevel,msg='Fitting beamline scan...')
+
 	beamline_manip = _copy.deepcopy(beamline)
 	numsteps = beamline_manip.size
 	y              = y[_np.newaxis]
