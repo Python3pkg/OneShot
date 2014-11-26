@@ -21,14 +21,15 @@ def plotfit(
 	# Set up PDF saving
 	# ======================================
 	# print axes
-	if axes is None:
-		if not (figlabel == None):
-			fig = _mt.figure(figlabel)
-		else:
-			fig = _plt.figure()
-		axes=fig.add_subplot(1,1,1)
-	else:
-		fig = axes.get_figure()
+	# if axes is None:
+	# 	if not (figlabel == None):
+	# 		fig = _mt.figure(figlabel)
+	# 	else:
+	# 		fig = _plt.figure()
+	# 	axes=fig.add_subplot(1,1,1)
+	# else:
+	# 	pass
+	# 	# fig = axes.get_figure()
 
 	# Convert from meters to um
 	y_data_mm_sq = y * 1e6
@@ -58,10 +59,10 @@ def plotfit(
 	# _mt.addlabel(top,bottom,'$\sigma_x^2$ [mm$^2$]')
 	axes.legend(['Measured Slices','Fit to Measurement'])
 	_mt.addlabel(axes=axes,xlabel='Slice Energy [GeV]',ylabel='Slice Spot Size $\\sigma_x$ [$\\mu$m]',toplabel=top)
-	if fig is not None:
-		fig.tight_layout()
+	# if fig is not None:
+	#         fig.tight_layout()
 
-	if not (figpath == None):
-		_mt.graphics.savefig(figlabel,figpath)
+	# if not (figpath == None):
+	#         _mt.graphics.savefig(figlabel,figpath)
 
 	return axes
