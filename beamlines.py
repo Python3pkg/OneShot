@@ -1,7 +1,7 @@
 import slactrac as _sltr
 import logging
 import numpy as np
-logger=logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 gamma_default    = np.float_(39824)
 # QS1_K1_default = np.float_(0.077225846087095e-01)
@@ -16,7 +16,8 @@ ELANEX_Z         = np.float_(2015.22)
 # IP2QS1_length  = np.float_(5.4217)
 IP2QS1_length    = QS1_Z-PEXT_Z
 
-def IP_to_lanex(beam_x,beam_y,
+
+def IP_to_lanex(beam_x, beam_y,
         gamma  = gamma_default,
         QS1_K1 = QS1_K1_default,
         QS2_K1 = QS2_K1_default
@@ -43,30 +44,31 @@ def IP_to_lanex(beam_x,beam_y,
     AL2ELANEX = _sltr.Drift(   name = 'AL2ELANEX' , length    = np.float_(0.06))
 
     beamline     = _sltr.Beamline(
-            element_list=[
-                # IP2QS1  ,
-                IP2BE     ,
-                BESCATTER ,
-                BE2QS1    ,
-                QS1       ,
-                QS1       ,
-                LQS12QS2  ,
-                QS2       ,
-                QS2       ,
-                LQS22BEND ,
-                B5D36     ,
-                # LBEND2ELANEX
-                LBEND2AL  ,
-                ALSCATTER ,
-                AL2ELANEX
-                ],
-            gamma  = gamma,
-            beam_x = beam_x,
-            beam_y = beam_y
-            )
+        element_list=[
+            # IP2QS1  ,
+            IP2BE     ,
+            BESCATTER ,
+            BE2QS1    ,
+            QS1       ,
+            QS1       ,
+            LQS12QS2  ,
+            QS2       ,
+            QS2       ,
+            LQS22BEND ,
+            B5D36     ,
+            # LBEND2ELANEX
+            LBEND2AL  ,
+            ALSCATTER ,
+            AL2ELANEX
+            ],
+        gamma  = gamma,
+        beam_x = beam_x,
+        beam_y = beam_y
+        )
     return beamline
 
-def IP_to_lanex_nobend(beam_x,beam_y,
+
+def IP_to_lanex_nobend(beam_x, beam_y,
         gamma  = gamma_default,
         QS1_K1 = QS1_K1_default,
         QS2_K1 = QS2_K1_default
@@ -75,26 +77,27 @@ def IP_to_lanex_nobend(beam_x,beam_y,
     logger.debug('Using lanex_nobend')
 
     beamline = IP_to_lanex(
-            beam_x = beam_x,
-            beam_y = beam_y,
-            gamma  = gamma,
-            QS1_K1 = QS1_K1,
-            QS2_K1 = QS2_K1
-            )
+        beam_x = beam_x,
+        beam_y = beam_y,
+        gamma  = gamma,
+        QS1_K1 = QS1_K1,
+        QS2_K1 = QS2_K1
+        )
 
     # Replace bend with drift
-    B5D36_drift = _sltr.Drift(name='B5D36_drift',length= np.float_(2)*np.float_(4.889500000E-01))
+    B5D36_drift = _sltr.Drift(name='B5D36_drift', length= np.float_(2)*np.float_(4.889500000E-01))
     beamline.elements[9] = B5D36_drift
 
     return beamline
 
-def IP_to_cherfar(beam_x,beam_y,
+
+def IP_to_cherfar(beam_x, beam_y,
         gamma  = gamma_default,
         QS1_K1 = QS1_K1_default,
         QS2_K1 = QS2_K1_default
         ):
     logger.debug('Using cherfar')
-    beamline = IP_to_lanex(beam_x,beam_y,
+    beamline = IP_to_lanex(beam_x, beam_y,
         gamma  = gamma,
         QS1_K1 = QS1_K1,
         QS2_K1 = QS2_K1
@@ -103,7 +106,7 @@ def IP_to_cherfar(beam_x,beam_y,
     # print beamline.elements[12].length
     ind = 12
     logger.critical('Modifying lanex into cherfar by changing length of element: Index {}'.format(ind))
-    logger.critical('Beamline elements {ind}: {value}'.format(ind=ind,value=beamline.elements[12].length))
+    logger.critical('Beamline elements {ind}: {value}'.format(ind=ind, value=beamline.elements[12].length))
     beamline.elements[12].length = beamline.elements[12].length + np.float_(0.8198)
 
     return beamline
