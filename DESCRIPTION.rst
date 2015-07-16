@@ -1,16 +1,12 @@
-SLACtrac
+OneShot
 ========
 
-SLACtrac is designed to simulate linac elements, connected together,
-to provide transfer matrices and beam propagation.
+OneShot is a package that analyzes single shots in order to determine beam emittance. It depends on analysis packages and is highly specialized. It is unlikely anyone will find this useful for anything except for me.
 
-SLACtrac borrows significantly from ANL software Elegant:
-
-http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/software.shtml#elegant
 
 Documentation
 -------------
 
 More in-depth documentation can be found at:
 
-http://slactrac.readthedocs.org
+http://oneshot.readthedocs.org
