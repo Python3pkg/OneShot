@@ -1,8 +1,7 @@
-#!/usr/bin/env python
 import numpy as np
 import copy
 import collections as col
-import mytools as mt
+import scisalt.scipy as ssc
 
 
 # Fit bowtie {{{
@@ -66,7 +65,7 @@ def tradquadscan(beamline, y, twiss, emitx, error=None, verbose=False):
             # 2 * (-2*beta[1, 0] * beta[0, 0]) * covar[1, 2]
         )
 
-    chisq_red = mt.chisquare(y.transpose(), np.dot(X_unweighted, beta), error, ddof=3, verbose=verbose)
+    chisq_red = ssc.chisquare(y.transpose(), np.dot(X_unweighted, beta), error, ddof=3, verbose=verbose)
 # def chisquare(observe, expect, error, ddof, verbose=True):
 
     if verbose:

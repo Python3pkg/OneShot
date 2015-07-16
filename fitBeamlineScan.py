@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import numpy as _np
 import copy as _copy
-import mytools as _mt
+import scisalt.scipy as ssc
+import scisalt.matplotlib as sm
 import matplotlib.pyplot as _plt
 import slactrac as _sltr
 
@@ -10,10 +11,10 @@ loggerlevel = logging.DEBUG
 logger      = logging.getLogger(__name__)
 
 
-class ScanFit(_mt.LinLsqFit):
+class ScanFit(ssc.LinLsqFit):
     def __init__(self, eaxis, *args, **kwargs):
         self._resetlist = _np.append(self._resetlist, ['_emit', '_Beam', '_emitn'])
-        _mt.LinLsqFit.__init__(self, *args, **kwargs)
+        ssc.LinLsqFit.__init__(self, *args, **kwargs)
         self.eaxis = eaxis
 
     def _get_e_gamma(self):
@@ -82,7 +83,7 @@ def fitBeamlineScan(beamline, y, error=None, verbose=False, plot=False, eaxis=No
         spotexpected[i] = bl.spotsize_x_end
 
     if plot:
-        _mt.figure('Expected')
+        sm.figure('Expected')
         xax = _np.linspace(1, numsteps, numsteps)
         _plt.plot(xax, _np.sqrt(y.transpose()), xax, spotexpected)
         _plt.show()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import numpy as _np
-import mytools as _mt
+import scisalt.matplotlib as _sm
 
 
 def plotfit(
@@ -61,7 +61,7 @@ def plotfit(
         axes.legend(['Measured Slices', 'Fit to Measurement'])
     else:
         axes.legend(['Measured Slices', 'Fit to Measurement'], fontsize=fontsize)
-    _mt.addlabel(axes=axes, xlabel='Slice Energy [GeV]', ylabel='Slice Spot Size $\\sigma_x$ [$\\mu$m]', toplabel=top)
+    _sm.addlabel(axes=axes, xlabel='Slice Energy [GeV]', ylabel='Slice Spot Size $\\sigma_x$ [$\\mu$m]', toplabel=top)
     # if fig is not None:
     #         fig.tight_layout()
 

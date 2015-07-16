@@ -2,7 +2,8 @@
 import numpy as np
 import copy
 import collections as col
-import mytools as mt
+import scisalt.matplotlib as sm
+import scisalt.scipy as ssc
 
 
 # Fit bowtie {{{
@@ -62,7 +63,7 @@ def fitbowtie(beamline, x, y, T, twiss, emitx, error=None, verbose=False):
             # 2 * (-2*beta[1, 0] * beta[0, 0]) * covar[1, 2]
         )
 
-    chisq_red = mt.chisquare(y.transpose(), np.dot(X_unweighted, beta), error, ddof=3, verbose=verbose)
+    chisq_red = ssc.chisquare(y.transpose(), np.dot(X_unweighted, beta), error, ddof=3, verbose=verbose)
 
     if verbose:
         print('Emittance error is:\t\t{}.'.format(np.sqrt(del_emit_sq)))
