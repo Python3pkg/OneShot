@@ -14,18 +14,19 @@ __all__ = [
     ]
 
 
-gamma_default    = _np.float_(39824)
-# QS1_K1_default = _np.float_(0.077225846087095e-01)
-# QS2_K1_default = _np.float_(02.337527121004531e-01)
-QS1_K1_default   = _np.float_(3.8743331090707228e-1)
-QS2_K1_default   = _np.float_(-2.5439067538354171e-1)
-PEXT_Z           = _np.float_(1994.97)
-QS1_Z            = _np.float_(1998.71)
-AL_Z             = _np.float_(2015.16)
-BE_Z             = _np.float_(1996.34)
-ELANEX_Z         = _np.float_(2015.22)
-# IP2QS1_length  = _np.float_(5.4217)
-IP2QS1_length    = QS1_Z-PEXT_Z
+if not _on_rtd:
+    gamma_default    = _np.float_(39824)
+    # QS1_K1_default = _np.float_(0.077225846087095e-01)
+    # QS2_K1_default = _np.float_(02.337527121004531e-01)
+    QS1_K1_default   = _np.float_(3.8743331090707228e-1)
+    QS2_K1_default   = _np.float_(-2.5439067538354171e-1)
+    PEXT_Z           = _np.float_(1994.97)
+    QS1_Z            = _np.float_(1998.71)
+    AL_Z             = _np.float_(2015.16)
+    BE_Z             = _np.float_(1996.34)
+    ELANEX_Z         = _np.float_(2015.22)
+    # IP2QS1_length  = _np.float_(5.4217)
+    IP2QS1_length    = QS1_Z-PEXT_Z
 
 
 def IP_to_lanex(beam_x, beam_y,
@@ -70,7 +71,7 @@ def IP_to_lanex(beam_x, beam_y,
             QS2       ,
             LQS22BEND ,
             B5D36     ,
-            # LBEND2ELANEX
+            # LBEND2ELANEX,
             LBEND2AL  ,
             ALSCATTER ,
             AL2ELANEX
