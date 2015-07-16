@@ -1,5 +1,7 @@
-#!/usr/bin/env python
-import numpy as _np
+import os as _os
+_on_rtd = _os.environ.get('READTHEDOCS', None) == 'True'
+if not _on_rtd:
+    import numpy as _np
 import scisalt.matplotlib as _sm
 
 
@@ -17,6 +19,11 @@ def plotfit(
         fontsize = None        ,
         **kwargs
         ):
+    """
+    .. deprecated:: 0.0.0
+
+    I'm not really sure what this function does, but it's not referenced anywhere else.
+    """
     # ======================================
     # Set up PDF saving
     # ======================================

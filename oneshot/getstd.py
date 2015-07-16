@@ -1,22 +1,29 @@
-#!/usr/bin/env python
-import numpy as np
+import os as _os
+_on_rtd = _os.environ.get('READTHEDOCS', None) == 'True'
+if not _on_rtd:
+    import numpy as _np
 
 
 # Get std dev (spot size) {{{
 def getstd(res, h, xval):
-    stddevsq  = np.zeros(res)
+    """
+    .. deprecated:: 0.0.0
+
+    I'm not really sure what this function does, but it's not referenced anywhere else.
+    """
+    stddevsq  = _np.zeros(res)
     indivbool = False
     if indivbool:
         figscan = plt.figure()  # noqa
     
     def gauss(x, A, mu, sig):
-        return A*np.exp(-np.power(x-mu, 2)/(2*np.power(sig, 2)))
+        return A*_np.exp(-_np.power(x-mu, 2)/(2*_np.power(sig, 2)))
     
-    for i, row in enumerate(np.transpose(h)):
+    for i, row in enumerate(_np.transpose(h)):
         # A = max(row)
-        mean = np.sum(xval*row)/row.sum()
-        var = np.sum(np.power(xval-mean, 2)*row)/row.sum()
-        # root = np.sqrt(var)
+        mean = _np.sum(xval*row)/row.sum()
+        var = _np.sum(_np.power(xval-mean, 2)*row)/row.sum()
+        # root = _np.sqrt(var)
         # pguess = [A, mean, root]
         # popt = pguess
         # popt, pcov = spopt.curve_fit(gauss, xval, row, pguess)
@@ -29,9 +36,9 @@ def getstd(res, h, xval):
         # # plt.plot(xval, row)
         # if indivbool: raw_input("Any key.")
         # if indivbool: figscan.clf()
-        # # stddevsq[i] = np.power(popt[2], 2)
+        # # stddevsq[i] = _np.power(popt[2], 2)
         stddevsq[i] = var
     
-    # stddev=np.sqrt(stddevsq)
+    # stddev=_np.sqrt(stddevsq)
     return stddevsq
 # }}}

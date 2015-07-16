@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# SLACtrac documentation build configuration file, created by
+# OneShot documentation build configuration file, created by
 # sphinx-quickstart on Sun Jul 12 20:41:17 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -58,7 +58,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'SLACtrac'
+project = 'OneShot'
 copyright = '2015, Joel Frederico, SLAC National Accelerator Laboratory'
 author = 'Joel Frederico, SLAC National Accelerator Laboratory'
 
@@ -67,7 +67,7 @@ author = 'Joel Frederico, SLAC National Accelerator Laboratory'
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = '1.0.1'
+release = '0.0.0'
 # The short X.Y version.
 match = re.match('\w*\.\w*', release)
 if match:
@@ -242,7 +242,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'SLACtracdoc'
+htmlhelp_basename = 'OneShotdoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -264,7 +264,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'SLACtrac.tex', 'SLACtrac Documentation',
+  (master_doc, 'OneShot.tex', 'OneShot Documentation',
    'Joel Frederico, SLAC National Accelerator Laboratory', 'manual'),
 ]
 
@@ -294,7 +294,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'slactrac', 'SLACtrac Documentation',
+    (master_doc, 'oneshot', 'OneShot Documentation',
      [author], 1)
 ]
 
@@ -308,8 +308,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'SLACtrac', 'SLACtrac Documentation',
-   author, 'SLACtrac', 'One line description of project.',
+  (master_doc, 'OneShot', 'OneShot Documentation',
+   author, 'OneShot', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -332,5 +332,5 @@ intersphinx_mapping = {
     'matplotlib': ('http://matplotlib.sourceforge.net/', None),
     'numpy': ('http://docs.scipy.org/doc/numpy/', None),
     'scipy': ('http://docs.scipy.org/doc/scipy/reference/', None),
-    'h5py': ('http://docs.h5py.org/en/latest', None),
+    'scisalt': ('http://scisalt.readthedocs.org/en/stable/', None),
     }

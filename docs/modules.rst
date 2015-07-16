@@ -1,24 +1,14 @@
-Full Documentation
-==================
+Modules
+=======
 
-SLACtrac is designed to calculate transfer matrices to make accelerator physics analysis easier in Python.
+OneShot has several modules that make calculations easier
 
-Classes
--------
+Beamlines
+---------
 
-.. automodule:: slactrac
-   :members: BeamParams, Beamline, Bend, Bunch, Drift, Focus, Quad, Scatter
+The :mod:`oneshow.Beamlines` module stores several typical beamline configurations.
+
+.. automodule:: oneshot.Beamlines
+   :members:
    :undoc-members:
-   :imported-members:
-
-Functions - conversions
------------------------
-
-.. automodule:: slactrac
-   :members: GeV2gamma, GeV2joule, eV2joule, gamma2GeV
-
-Functions - Elegant
--------------------
-
-.. automodule:: slactrac
-   :members: elegant_sim, gaussbunch_sigmas, gaussbunch_twiss
+   :inherited-members:

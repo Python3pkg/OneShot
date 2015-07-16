@@ -18,18 +18,18 @@ with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='SLACtrac',
+    name='OneShot',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     version='0.0.0',
 
-    description='Linac simulation package',
+    description='Single shot emittance measurement package.',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/joelfrederico/SLACtrac',
+    url='https://github.com/joelfrederico/OneShot',
 
     # Author details
     author='Joel Frederico, SLAC National Accelerator Laboratory',
@@ -61,7 +61,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='linac linear accelerator simulation beam physics',
+    keywords='physics PWFA plasma wakefield accelerator emittance measurement',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -74,7 +74,7 @@ setup(
     install_requires=[
         'numpy',
         'scipy',
-        'jinja2'
+        'SciSalt>=1.2'
         ],
 
     # List additional groups of dependencies here (e.g. development
