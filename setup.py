@@ -74,7 +74,8 @@ setup(
     install_requires=[
         'numpy',
         'scipy',
-        'SciSalt>=1.2'
+        'SciSalt>=1.2',
+        'SLACtrac',
         ],
 
     # List additional groups of dependencies here (e.g. development
