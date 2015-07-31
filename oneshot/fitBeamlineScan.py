@@ -31,10 +31,13 @@ class ScanFit(_ssc.LinLsqFit):
         _ssc.LinLsqFit.__init__(self, *args, **kwargs)
         self.eaxis = eaxis
 
-    def _get_e_gamma(self):
+    @property
+    def e_gamma(self):
+        """
+        Relativistic :math:`\\gamma`.
+        """
         argmin = _np.argmin(self.y_fit)
         return self.eaxis[argmin]/(0.5109989e-3)
-    gamma = property(_get_e_gamma)
 
     # ======================================
     # emit (calculated)

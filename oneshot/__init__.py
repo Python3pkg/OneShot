@@ -9,3 +9,5 @@ from .histenergy import histenergy       # noqa
 from .plotfit import plotfit             # noqa
 from .tradquadscan import tradquadscan   # noqa
 # from E200_cam_E_cal import *           # noqa
+
+from .findpinch import findpinch
