@@ -16,6 +16,7 @@ from scisalt.matplotlib import setup_axes as _setup_axes
 
 class findpinch(object):
     """
+    .. versionadded:: 0.2
     Finds the location of a bunch in an image *img* given bounds *xbounds* and *ybounds* by slicing image in strips of pixels *step* high.
 
     """
@@ -92,40 +93,67 @@ class findpinch(object):
 
     @property
     def GaussResults(self):
+        """
+        An array of fit results.
+        """
         return self._gr
 
     @property
     def variance(self):
+        """
+        An array of the variances of fits.
+        """
         return self._variance
 
     @property
     def xstart(self):
+        """
+        The starting :math:`x` coordinate for the fit window.
+        """
         return self._xstart
 
     @property
     def xstop(self):
+        """
+        The ending :math:`x` coordinate for the fit window.
+        """
         return self._xstop
 
     @property
     def ystart(self):
+        """
+        The starting :math:`y` coordinate for the fit window.
+        """
         return self._ystart
 
     @property
     def ystop(self):
+        """
+        The ending :math:`y` coordinate for the fit window.
+        """
         return self._ystop
 
     @property
     def step(self):
+        """
+        The number of pixels to sum together per row.
+        """
         return self._step
 
     @property
     def yvar(self):
+        """
+        The y coordinates.
+        """
         yvar = _np.shape(linspacestep(self._ystart, self._ystop, self.step))[0] - 1
         yvar = linspacestep(1, yvar)
         return yvar
 
     @property
     def ind(self):
+        """
+        Indices to use for fits.
+        """
         if self._ind is None:
             self._ind = self.variance > 0
         return self._ind
@@ -136,22 +164,37 @@ class findpinch(object):
 
     @property
     def polyfit(self):
+        """
+        The results of a polynomial fit of 2nd order.
+        """
         out = _np.polyfit(self.yvar[self.ind], self.variance[self.ind], 2)
         return out
 
     @property
     def fitmin(self):
+        """
+        The minimum of the fit.
+        """
         return -self.polyfit[1] / (2 * self.polyfit[0])
 
     @property
     def pxmin(self):
+        """
+        The x pixel minimum of the fit.
+        """
         return self.fitmin * self.step + self.ystart
 
     @property
     def pvar(self):
+        """
+        The :math:`y` pixel coordinate of the fits.
+        """
         return self.ystart + self.yvar[self.ind] * self.step
 
     def plot(self, ax=None):
+        """
+        Plots the fit.
+        """
         # ======================================
         # Fit 2nd-deg poly to results
         # ======================================
