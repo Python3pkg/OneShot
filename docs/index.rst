@@ -15,7 +15,7 @@ This is the documentation for OneShot v\ |release|, last updated |today|.
    introduction
    functions
    modules
-
+   changelog
 
 Indices and tables
 ==================
