@@ -17,8 +17,8 @@ from scisalt.matplotlib import setup_axes as _setup_axes
 class findpinch(object):
     """
     .. versionadded:: 0.2
-    Finds the location of a bunch in an image *img* given bounds *xbounds* and *ybounds* by slicing image in strips of pixels *step* high.
 
+    Finds the location of a bunch in an image *img* given bounds *xbounds* and *ybounds* by slicing image in strips of pixels *step* high.
     """
     def __init__(self, img, xbounds=None, ybounds=None, step=1):
         # ======================================
