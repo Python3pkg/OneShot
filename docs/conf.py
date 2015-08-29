@@ -333,4 +333,5 @@ intersphinx_mapping = {
     'numpy': ('http://docs.scipy.org/doc/numpy/', None),
     'scipy': ('http://docs.scipy.org/doc/scipy/reference/', None),
     'scisalt': ('http://scisalt.readthedocs.org/en/stable/', None),
+    'E200': ('http://e200.readthedocs.org/en/latest/', None)
     }

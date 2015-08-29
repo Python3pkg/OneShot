@@ -12,9 +12,8 @@ This is the documentation for OneShot v\ |release|, last updated |today|.
    :numbered:
    :maxdepth: 2
 
-   introduction
-   functions
-   modules
+   manual/manual
+   fulldoc/fulldoc
    changelog
 
 Indices and tables
