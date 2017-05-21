@@ -74,16 +74,16 @@ def fitbowtie(beamline, x, y, T, twiss, emitx, error=None, verbose=False):
     chisq_red = _ssc.chisquare(y.transpose(), _np.dot(X_unweighted, beta), error, ddof=3, verbose=verbose)
 
     if verbose:
-        print('Emittance error is:\t\t{}.'.format(_np.sqrt(del_emit_sq)))
+        print(('Emittance error is:\t\t{}.'.format(_np.sqrt(del_emit_sq))))
         beta0 = beta[0, 0]/emit
         gamma0 = beta[2, 0]/emit
         alpha0 = -_np.sign(beta[1, 0])*_np.sqrt(beta0*gamma0-1)
-        print('Emittance fit:\t\t\t{}.'.format(emit))
-        print('Normalized emittance fit:\t{}.'.format(emit*40000))
-        print('Initial beta fit:\t\t{}.'.format(beta0))
-        print('Initial alpha fit:\t\t{}.'.format(alpha0))
-        print('Initial gamma fit:\t\t{}.'.format(gamma0))
-        print('Initial spot from fit:\t\t{}.'.format(_np.sqrt(beta[0, 0])))
+        print(('Emittance fit:\t\t\t{}.'.format(emit)))
+        print(('Normalized emittance fit:\t{}.'.format(emit*40000)))
+        print(('Initial beta fit:\t\t{}.'.format(beta0)))
+        print(('Initial alpha fit:\t\t{}.'.format(alpha0)))
+        print(('Initial gamma fit:\t\t{}.'.format(gamma0)))
+        print(('Initial spot from fit:\t\t{}.'.format(_np.sqrt(beta[0, 0]))))
 
     output = _col.namedtuple('fitbowtie_output', ['spotexpected', 'X', 'X_unweighted', 'beta', 'covar', 'chisq_red'])
     out = output(spotexpected, X, X_unweighted, beta, covar, chisq_red)
